@@ -1,8 +1,8 @@
 const express = require('express');
 const chalk = require('chalk');
-const app = express();
 const cors = require('cors');
 
+const app = express();
 const PORT = 3000;
 
 app.use(express.json());
