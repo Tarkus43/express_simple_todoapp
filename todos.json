@@ -1,9 +1,1 @@
-{
-    "todos": [
-        {
-            "id": 1,
-            "title": "Sample Todo",
-            "completed": false
-        }
-    ]
-}
+{"todos":[]}

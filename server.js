@@ -31,6 +31,32 @@ app.get('/', (req, res) => {
     
 });
 
+app.post('/', (req, res) => {
+  const todo = req.body
+  try{
+    fs.readFile('todos.json', 'utf-8', (err, data) => {
+      if (err) {
+        return res.status(500).json({ err: 'read error' })
+      }
+
+      
+    try {
+      const todoList = JSON.parse(data)
+      todoList.todos.push(todo)
+
+      fs.writeFileSync('todos.json', JSON.stringify(todoList))
+      res.json(todoList)
+
+    } catch (e) {
+      res.status(500).json({ err: 'parse error' })
+    }
+  })
+  } catch (err) {
+    res.json({err:"Internal server error"})
+  }
+  
+})
+
 app.listen(PORT, () => {
   console.log(`Server is running on ${chalk.blue(`http://localhost:${PORT}`)}`);
 });
