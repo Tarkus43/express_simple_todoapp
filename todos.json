@@ -1,1 +1,20 @@
-{"todos":[]}
+{"todos":[
+    {
+        "id": 1,
+        "title": "Buy groceries",
+        "description": "Milk, Bread, Eggs, Butter",
+        "completed": false
+    },
+    {
+        "id": 2,
+        "title": "Walk the dog",
+        "description": "Take the dog for a walk in the park",
+        "completed": true
+    },
+    {
+        "id": 3,
+        "title": "Finish project report",
+        "description": "Complete the final report for the project",
+        "completed": false
+    }
+]}

@@ -2,7 +2,6 @@ const express = require('express');
 const chalk = require('chalk');
 const cors = require('cors');
 const fs = require('fs');
-const { json } = require('stream/consumers');
 
 const app = express();
 const PORT = 3000;
