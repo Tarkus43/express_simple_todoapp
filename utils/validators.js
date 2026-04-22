@@ -1,18 +1,21 @@
 const Ajv = require('ajv');
-const ajv = new Ajv();
+const ajv = new Ajv({ allErrors: true });
 
 const todoSchema = {
   type: 'object',
   properties: {
-    id: { type: 'number' },
-    title: { type: 'string' },
-    completed: { type: 'boolean' }
+    title: { type: 'string', minLength: 1 },
+    description: { type: 'string', minLength: 1 }
   },
-  required: ['id', 'title', 'completed'],
+  required: ['title', 'description'],
   additionalProperties: false
 };
 
-const isValidTodo = ajv.compile(todoSchema);
+const validateTodo = ajv.compile(todoSchema);
+
+function isValidTodo(todo) {
+  return validateTodo(todo);
+}
 
 module.exports = {
   isValidTodo

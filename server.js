@@ -2,6 +2,7 @@ const express = require('express');
 const chalk = require('chalk');
 const cors = require('cors');
 const fs = require('fs');
+const { isValidTodo } = require('./utils/validators');
 
 const app = express();
 const PORT = 3000;
@@ -30,30 +31,31 @@ app.get('/', (req, res) => {
     
 });
 
-app.post('/', (req, res) => {
+app.post('/create', (req, res) => {
   const todo = req.body
-  try{
+  if (!isValidTodo(todo)) {
+    return res.status(400).json({ error: 'Invalid todo format' });
+  }
+
+  try {
     fs.readFile('todos.json', 'utf-8', (err, data) => {
       if (err) {
-        return res.status(500).json({ err: 'read error' })
+        return res.status(500).json({ error: 'Error reading todos' });
       }
 
-      
-    try {
-      const todoList = JSON.parse(data)
-      todoList.todos.push(todo)
+      try {
+        const todoList = JSON.parse(data);
+        todoList.todos.push(todo);
 
-      fs.writeFileSync('todos.json', JSON.stringify(todoList))
-      res.json(todoList)
-
-    } catch (e) {
-      res.status(500).json({ err: 'parse error' })
-    }
-  })
+        fs.writeFileSync('todos.json', JSON.stringify(todoList));
+        res.json(todoList);
+      } catch (e) {
+        res.status(500).json({ error: 'Error parsing todos' });
+      }
+    });
   } catch (err) {
-    res.json({err:"Internal server error"})
+    res.status(500).json({ error: 'Internal server error' });
   }
-  
 })
 
 app.listen(PORT, () => {
