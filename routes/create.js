@@ -4,6 +4,8 @@ const fs = require('fs');
 const { isValidTodo } = require('../utils/validators');
 
 router.post('/', (req, res) => {
+  console.log('Received POST request to create todo');
+
   const todo = req.body
   if (!isValidTodo(todo)) {
     return res.status(400).json({ error: 'Invalid todo format' });
@@ -20,6 +22,8 @@ router.post('/', (req, res) => {
         todoList.todos.push(todo);
 
         fs.writeFileSync('todos.json', JSON.stringify(todoList));
+        
+        console.log('Todo created successfully:', todo);
         res.json(todoList);
       } catch (e) {
         res.status(500).json({ error: 'Error parsing todos' });
