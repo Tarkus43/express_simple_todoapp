@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 const fs = require('fs');
 const { isValidTodo } = require('../utils/validators');
+const getLastId = require('../utils/lastId');
 
 router.post('/', (req, res) => {
   console.log('Received POST request to create todo');
@@ -10,6 +11,9 @@ router.post('/', (req, res) => {
   if (!isValidTodo(todo)) {
     return res.status(400).json({ error: 'Invalid todo format' });
   }
+
+  const newId = getLastId() + 1;
+  todo.id = newId;
 
   try {
     fs.readFile('todos.json', 'utf-8', (err, data) => {

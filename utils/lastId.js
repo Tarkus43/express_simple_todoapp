@@ -1,13 +1,15 @@
 const fs = require('fs');
 const path = require('path');
+const chalk = require('chalk');
 
 function getLastId() {
   const filePath = path.resolve(__dirname, '..', 'todos.json');
   try {
     const data = fs.readFileSync(filePath, 'utf8');
-    const todoList = JSON.parse(data);
+    const todoList = JSON.parse(data).todos;
 
     if (!Array.isArray(todoList) || todoList.length === 0) {
+      console.log(chalk.yellow('No todos found in todos.json, starting with id 0'));
       return -1;
     }
 
