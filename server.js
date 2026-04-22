@@ -18,8 +18,8 @@ app.use(cors(
     }
 ));
 
-app.use('/delete', deleteTodo);
 app.use('/', getTodo);
+app.use('/', deleteTodo);
 app.use('/', createTodo);
 
 
