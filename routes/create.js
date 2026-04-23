@@ -12,8 +12,7 @@ router.post('/', (req, res) => {
     return res.status(400).json({ error: 'Invalid todo format' });
   }
 
-  const newId = getLastId() + 1;
-  todo.id = newId;
+  todo.id = getLastId() + 1;
   todo.completed = false;
 
   try {

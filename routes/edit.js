@@ -25,7 +25,9 @@ router.put('/:id', (req, res) => {
           return res.status(404).json({ error: 'Todo not found' });
         }
 
+        updatedTodo.id = id;
         todoList.todos[index] = updatedTodo;
+
         fs.writeFile('todos.json', JSON.stringify(todoList), (err) => {
           if (err) {
             return res.status(500).json({ error: 'Error updating todo' });
