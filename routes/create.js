@@ -14,6 +14,7 @@ router.post('/', (req, res) => {
 
   const newId = getLastId() + 1;
   todo.id = newId;
+  todo.completed = false;
 
   try {
     fs.readFile('todos.json', 'utf-8', (err, data) => {
