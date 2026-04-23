@@ -26,6 +26,7 @@ router.put('/:id', (req, res) => {
         }
 
         updatedTodo.id = id;
+        updatedTodo.completed = Boolean(updatedTodo.completed);
         todoList.todos[index] = updatedTodo;
 
         fs.writeFile('todos.json', JSON.stringify(todoList), (err) => {
