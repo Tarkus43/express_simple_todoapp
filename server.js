@@ -3,9 +3,11 @@ const chalk = require('chalk');
 const cors = require('cors');
 const fs = require('fs');
 const { isValidTodo } = require('./utils/validators');
+
 const createTodo = require('./routes/create');
 const deleteTodo = require('./routes/delete');
 const getTodo = require('./routes/get');
+const editTodo = require('./routes/edit');
 
 const app = express();
 const PORT = 3000;
@@ -21,6 +23,7 @@ app.use(cors(
 app.use('/', getTodo);
 app.use('/', deleteTodo);
 app.use('/', createTodo);
+app.use('/', editTodo);
 
 
 app.listen(PORT, () => {
